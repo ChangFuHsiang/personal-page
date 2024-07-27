@@ -1,0 +1,10 @@
+.brand-large {
+    font-size: 2rem; /* 或者根據您的需求調整更大的值 */
+    vertical-align: middle; /* 確保與其他鏈接垂直對齊 */
+  }
+.navLink {
+    color: rgb(81, 141, 20); /* 鏈接的顏色 */
+}  
+.navLink:hover {
+    color: rgba(41, 153, 41, 0.5); /* 懸停時的顏色和透明度 */
+  }
