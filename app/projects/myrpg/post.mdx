@@ -1,0 +1,76 @@
+import Link from "next/link"
+
+![MyRPG Cover](/projects/myrpg/cover.jpg)
+
+## 專案簡介
+**MyRPG** 是一款網頁端角色扮演遊戲，最大特色是把「打字準確度與反應時間」轉換成戰鬥傷害。玩家需在**倒數計時**內輸入技能咒語來施放技能，結合傳統 RPG 的角色成長與打字遊戲的節奏感。
+
+> 前後端分離：React SPA + Express REST API；Sequelize 連接 MySQL；JWT（RSA）驗證，搭配 Helmet 與 CORS 增強安全。
+
+---
+
+## 核心特色
+- **文字輸入戰鬥系統**：倒數內輸入咒語，**準確度 + 反應時間** 決定傷害。
+- **完整 RPG 系統**：等級/經驗、屬性（HP/MP/攻擊/防禦/敏捷/幸運）、裝備與技能。
+- **場景探索與遭遇**：多場景、對應怪物池、擊敗獲得經驗/金錢/物品。
+- **物品交易與裝備管理**：商人買賣、消耗品使用、裝備更換即時反映屬性。
+
+---
+
+## 技術亮點
+- **後端分層**：Router / Controller / Service / Repository 清楚解耦；RESTful API 對接前端。
+- **資料關聯**：Sequelize **多型關聯**（`Character`/`Monster` 共享 `CombatAttribute`）、**多對多** 物品擁有（`ItemOwnership`）。
+- **狀態管理**：React Context API + LocalStorage 持久化登入。
+- **性能優化**：善用 `include` 降 N+1 查詢；明確錯誤格式統一回傳。
+- **互動與響應式**：CSS 動畫（戰鬥／場景切換）、Bootstrap 響應式版面。
+
+---
+
+## 技術棧
+**Frontend**
+- React 18、React Router、Axios  
+- Bootstrap 5、React Bootstrap
+
+**Backend**
+- Node.js、Express 4  
+- Sequelize 6、MySQL  
+- Passport（Local / JWT）、JWT（RSA）
+
+**Security / Dev**
+- Helmet、CORS、bcrypt  
+- Concurrently 啟動前後端、Nodemon 開發
+
+> 版本（節錄）：React 18.2 / Express 4.19 / Sequelize 6.37 / MySQL2 3.9 / JWT 9.0 / Passport 0.7
+
+---
+
+## 架構與資料庫
+![Architecture](/projects/myrpg/architecture.png)
+
+- **前後端**：React SPA ↔︎ Express API（JSON）  
+- **分層**：`Router → Controller → Service → Repository`  
+- **資料模型重點**：
+  - `Character`、`Monster` 共用 `CombatAttribute`（多型關聯）
+  - 物品系統：`Item` ⟷ `User/Character` 透過 `ItemOwnership`（多對多）
+  - 可擴充：`Skill`、`BattleLog`、`Quest` 等
+
+---
+
+## 安全機制
+- **JWT（RSA）**：7 天有效期，中介層驗證；以公私鑰對簽章。
+- **密碼安全**：`bcrypt` 雜湊存放，避免明文。
+- **HTTP 安全**：`Helmet` 安全頭、`CORS` 白名單控管來源。
+
+---
+
+## Demo / 原始碼
+- 🎮 <Link href="https://your-demo-link.example.com">線上體驗</Link>  
+- 📂 <Link href="https://github.com/yourname/myrpg">GitHub Repository</Link>
+
+> 本機開發提示：設定環境變數與資料庫後，使用 `concurrently` 同步啟動前後端。
+
+---
+
+## 補充：戰鬥計算（簡述）
+- **輸入評分** = 准確率（字元正確率） × 反應時間係數（依倒數剩餘時間換算）  
+- **傷害值** = 技能基礎傷害 × 輸入評分 × （角色攻擊 / 敵方防禦） × 隨機微幅擾動

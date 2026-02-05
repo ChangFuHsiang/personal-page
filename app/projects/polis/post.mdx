@@ -1,0 +1,60 @@
+import Link from "next/link"
+
+## 專案簡介
+**Polis 模組**將第三方 **Polis.is** 無縫嵌入網站，提供議題瀏覽、**匿名或註冊**參與、**新手導覽**與**行為分析報告**，以可視化方式呈現群體意見與共識。
+
+> 現代前端堆疊（Next.js 15 + React 19 + TypeScript），結合動態載入的 Polis SDK 與 Prisma 資料層；以最小化資料蒐集確保隱私。
+
+---
+
+## 核心功能
+- **議題列表**：靜態配置，圖文卡片呈現，動態路由導向議題頁。
+- **Polis 深度整合**：官方 JS SDK **按需動態載入**、全域參數注入、（可選）用戶身分綁定。
+- **互動式教學**：步驟式圖文引導，`localStorage` 記住進度，Framer Motion 動畫。
+- **行為分析與報告**：串接 Polis API 擷取互動紀錄，事件聚合 → 產出統計報告（可設定活動結束寄送 Email）。
+
+---
+
+## 技術亮點
+- **型別與維護性**：TypeScript 全域導入；模組分離（議題列表 / 嵌入容器 / 教學導覽 / 分析報告）。
+- **第三方 SDK 最佳化**：動態載入 + 失敗重試，不阻塞主流程，支援全域設定注入。
+- **資料層**：Prisma ORM + **UUID Token** 註冊流程；唯一索引、時間戳記。
+- **體驗設計**：Tailwind 快速樣式、Framer Motion 適度動效、響應式。
+
+---
+
+## 技術棧（精簡）
+**Frontend**：Next.js 15、React 19、TypeScript、Tailwind、Framer Motion  
+**Backend / DB**：Next.js Route Handlers / API、Prisma、PostgreSQL（或 MySQL）  
+**Integrations**：Polis JS SDK、Polis API
+
+---
+
+## 架構與資料庫（重點）
+![Architecture](/projects/polis/architecture.png)
+
+- **路由與組件**：`app/(polis)/[topic]/page.tsx`（議題頁容器）＋ `components/polis/Embed.tsx`（動態載入 SDK）＋ `components/polis/Tutorial.tsx`（教學）。
+- **最小資料模型**：`User(id, email, token[unique], createdAt, verifiedAt)`；以 token 做郵件驗證或活動關聯，**僅存必要欄位**。
+- **資料流**：用戶（匿名或已驗證） → Polis 互動 → 伺服器呼叫 Polis API 聚合 → 報告／郵件通知。
+
+---
+
+## 安全與隱私
+- **API 安全**：Polis API Key 置於環境變數，後端代理呼叫。
+- **輸入驗證**：Email 格式檢查；（可選）限制特定網域。
+- **隱私最小化**：支援匿名參與，只收集必要識別與時間戳。
+
+---
+
+## 成果與影響
+- **意見可視化**：呈現群體立場分佈、共識與差異。
+- **提高參與率**：新手導覽 + 匿名參與降低門檻。
+- **資料驅動**：以事件聚合與報告支援政策／活動決策。
+
+---
+
+## Demo / 原始碼
+- 🎮 <Link href="https://artfest.ntu.edu.tw/polis">線上體驗</Link>  
+- 📂 <Link href="https://github.com/yourname/polis-module">GitHub Repository</Link>
+
+> 提示：若需本地化開發，請設定環境變數（含 Polis API Key），並以 Route Handlers 將 API 呼叫置於伺服器端。
