@@ -3,9 +3,17 @@
 @plugin "@tailwindcss/typography";
 
 body {
-  background-color: white;
-  color: #1e293b; /* 深灰文字 */
+  background-color: #f9fafb;
+  color: #1e293b;
   font-family: 'Inter', sans-serif;
 }
 
 .prose img { margin: 0; }  /* 搭配 next/image 時更緊湊 */
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}

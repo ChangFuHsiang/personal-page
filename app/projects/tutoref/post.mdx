@@ -1,0 +1,53 @@
+import Link from "next/link"
+
+## 專案簡介
+
+**Tutoref** 是一個專為台灣山地原住民教師社群設計的教案資料庫與搜尋平台。教師可以上傳教案 PDF、透過關鍵字或語義搜尋找到所需教材，並以科目、年級、學年學期、教學時長等維度進行精確篩選。
+
+> 結合 Elasticsearch 全文搜尋與 AI 語義搜尋，搭配 LLM 自動提取教案資訊並生成標籤，讓教案管理從人工整理走向自動化。
+
+---
+
+## 核心功能
+
+- **混合搜尋**：PostgreSQL 精確匹配 + Elasticsearch BM25 + sentence-transformers 語義向量搜尋三層整合。
+- **AI 自動處理**：上傳 PDF 後，由 DeepSeek LLM 自動提取教案資訊、分類科目、生成搜尋標籤，透過 Celery 非同步執行不阻塞使用者操作。
+- **多維度篩選**：支援科目類別、教師/團隊、議題、年級、教學時長同時篩選與排序。
+- **Google Drive 整合**：投影片上傳直接存入 Google Drive，自動產生分享連結。
+- **收藏與優良標記**：支援多使用者收藏教案，管理員可標記優良教案。
+- **使用者認證**：Email 登入註冊、密碼重設、Google OAuth 整合。
+
+---
+
+## 技術棧
+
+**Frontend**：Next.js 15、TypeScript、Tailwind CSS、Material-UI、Radix UI  
+**Backend**：Django 5.2、FastAPI、Django Ninja  
+**Database**：PostgreSQL、Elasticsearch（全文 + 語義搜尋）  
+**AI / ML**：DeepSeek API、sentence-transformers、PyMuPDF  
+**Infrastructure**：Docker Compose、Celery + Redis、Google Drive API、Vercel
+
+---
+
+## 我的貢獻
+
+{/* TODO：填入你負責的部分，例如前端開發、搜尋介面、API 串接等 */}
+
+- 負責前端開發（Next.js App Router 架構、搜尋介面、篩選元件）
+- 串接後端搜尋 API 與首頁統計資料
+- 參與搜尋效能優化，將首頁多次 API 請求整合為單一 `/stats` 端點
+
+---
+
+## 成果
+
+- 服務涵蓋 6 個山地教師團隊（加拿、初來、新武、霧鹿、利稻、電光）
+- 已蒐集使用者回饋問卷，持續根據教師需求迭代功能
+- 搜尋從純關鍵字擴展至語義搜尋，顯著提升教案發現率
+
+---
+
+## Demo / 原始碼
+
+- 🔗 <Link href="#">線上體驗（敬請期待）</Link>
+- 📂 <Link href="#">GitHub Repository</Link>
